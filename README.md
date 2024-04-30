@@ -1,4 +1,4 @@
 ### Health Check
 
-This is a simple webpage that pings my personal application servers to display
-if they're up or are in the middle of an outage.
+This is a webapp I am using to display the status of the servers for all of my
+publicly available applications.
