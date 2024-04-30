@@ -9,7 +9,7 @@ interface StatusApp {
 
 function App() {
     const apps: StatusApp[] = [
-        {link: "http://blessmysoul.samcodesthings.com", url: "http://coycafe.ddns.net:2083/test", appName: "Bless My Soul"},
+        {link: "http://blessmysoul.samcodesthings.com", url: "https://coycafe.ddns.net:2083/test", appName: "Bless My Soul"},
     ]
 
 
