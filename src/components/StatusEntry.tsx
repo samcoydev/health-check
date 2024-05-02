@@ -4,6 +4,7 @@ import { Status } from "../types/status";
 import LoadingSpinner from "./icons/LoadingSpinner";
 import Check from "./icons/Check";
 import Cancel from "./icons/Cancel";
+import Beaker from "./icons/Beaker";
 
 interface StatusEntryProps {
     status: AppStatus
@@ -18,6 +19,11 @@ const StatusEntry = (props: StatusEntryProps) => {
     }, []);
 
     const getStatus = async () => {
+        if (props.status.inProgress) {
+            setStatus("In Progress");
+            return;
+        }
+
         fetch(props.status.url)
             .then(response => {
                 if (!response.ok) setStatus("Down");
@@ -27,16 +33,16 @@ const StatusEntry = (props: StatusEntryProps) => {
     };
 
     const getColor = () => {
+        if (status === "In Progress") return "ring-blue-500"
         if (status === "Good") return "ring-green-500";
         if (status === "Pending") return "ring-yellow-500";
         return "ring-red-500";
     };
 
     const Icon = () => {
+        if (status === "In Progress") return <Beaker />
         if (status === "Pending") return <LoadingSpinner />
-
         if (status === "Good") return <Check />
-
         return <Cancel />
     }
 
@@ -44,7 +50,7 @@ const StatusEntry = (props: StatusEntryProps) => {
         <div className={`flex flex-row justify-between ring-2 px-3 py-3 rounded-md mb-3 ${getColor()} transition-colors duration-5000 ease-in-out`}>
             <div className="flex">
                 <Icon />
-                <a href={props.status.link} className={"ms-2 border-b-2 border-dashed hover:border-solid"}>{props.status.appName}</a>
+                <a href={props.status.link} className={"ms-2 border-b-2 border-none hover:border-solid"}>{props.status.appName}</a>
             </div>
             <p><strong>{status}</strong></p>
         </div>

@@ -1,15 +1,10 @@
 import "./App.css";
 import StatusEntry from "./components/StatusEntry";
-import { AppStatus } from "./types/app-status";
+import apps from "./apps-list";
 
 function App() {
-    const apps: AppStatus[] = [
-        {
-            link: "http://blessmysoul.samcodesthings.com",
-            url: "https://coycafe.ddns.net:2083/test",
-            appName: "Bless My Soul",
-        },
-    ];
+    const activeApps = apps.filter(a => !a.inProgress);
+    const inProgressApps = apps.filter(a => a.inProgress);
 
     return (
         <div className="mx-auto max-w-lg px-4 flex flex-col content-start">
@@ -18,9 +13,17 @@ function App() {
                 <h3 className="text-lg">health check app</h3>
             </div>
             <div>
-                {apps.map((status, index) => (
+                {activeApps.map((status, index) => (
                     <StatusEntry status={status} key={index} />
                 ))}
+            </div>
+            <div className="my-5">
+                <h5 className="ml-1 text-start">Inactive Apps</h5>
+                <div className="py-3 my-1 border-t-2 border-solid">
+                    {inProgressApps.map((status, index) => (
+                        <StatusEntry status={status} key={index} />
+                    ))}
+                </div>
             </div>
         </div>
     );
